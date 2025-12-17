@@ -9,14 +9,27 @@ Task:
 5. Add Amazon AWS credentials to the main.tf file or environment variables.
 6. Initialize and apply the current version of your Terraform project.
 
-# Project Title
+# Task 2
+For this task, you will create your first resource in AWS—VPC.
+Task:
 
-A brief, one or two-sentence description of the project and its purpose.
+1. Find an appropriate Terraform module in the Terraform Registry.
+2. Add a block of code into the main.tf file that configures VPC based on the module from the Terraform Registry.
+3. Check the execution plan.
+4. Apply the changes.
 
-## Subtitle / Overview
+# Task 3
+For this task, you will create a virtual machine (EC2 instance) in AWS.
+Task:
 
-This section can provide more detail about the project's features or goals. The title is an H1 heading (`#`), while the subtitle is an H2 heading (`##`), which visually distinguishes them as different levels of importance.
+1. Add the necessary blocks of code into file main.tf file to create two EC2 instances. Use the built-in function "count."
+2. Check the execution plan.
+3. Apply the changes.
 
-### Further Sub-section
+# Task 4
+For this task, you will create a load balancer in AWS.
+Task:
 
-You can use even smaller headings (`###`, `####`, etc.) to structure the rest of your document, such as an installation guide, usage instructions, or a list of contributors.
+1. Add the necessary blocks of code to the main.tf file to create a classic load balancer in Amazon AWS. The load balancer should distribute traffic across your two EC2 instances.
+2. Check the execution plan.
+3. Apply the changes.
