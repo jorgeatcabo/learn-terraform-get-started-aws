@@ -2,12 +2,12 @@
 For this task, you will install Terraform, create a Terraform minimal viable product (MVP), and execute Terraform commands.
 Task:
 
-1.Install Terraform to your control machine (your laptop).
-2.Create a folder for your Terraform project and put the main.tf file in it.
-3.Add information to the main.tf file about your cloud provider, Amazon AWS.
-4.Generate an AWS_ACCESS_KEY and an AWS_SECRET_KEY in your Amazon AWS account.
-5.Add Amazon AWS credentials to the main.tf file or environment variables.
-6.Initialize and apply the current version of your Terraform project.
+1. Install Terraform to your control machine (your laptop).
+2. Create a folder for your Terraform project and put the main.tf file in it.
+3. Add information to the main.tf file about your cloud provider, Amazon AWS.
+4. Generate an AWS_ACCESS_KEY and an AWS_SECRET_KEY in your Amazon AWS account.
+5. Add Amazon AWS credentials to the main.tf file or environment variables.
+6. Initialize and apply the current version of your Terraform project.
 
 # Project Title
 
