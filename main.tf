@@ -36,3 +36,70 @@ module "vpc" {
     Environment = "dev"
   }
 }
+
+############################################
+# Security Group - ALB
+############################################
+resource "aws_security_group" "alb" {
+  name   = "alb-sg"
+  vpc_id = module.vpc.vpc_id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+############################################
+# Security Group - EC2 (only ALB access)
+############################################
+resource "aws_security_group" "ec2" {
+  name   = "ec2-sg"
+  vpc_id = module.vpc.vpc_id
+
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+############################################
+# EC2 Instances (Private Subnets)
+############################################
+resource "aws_instance" "app" {
+  count         = 2
+  ami           = "ami-0a123456789abcdef" # Amazon Linux 2
+  instance_type = "t3.micro"
+
+  subnet_id              = module.vpc.private_subnets[count.index]
+  vpc_security_group_ids = [aws_security_group.ec2.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum install -y httpd
+              systemctl start httpd
+              echo "Hello from private EC2 ${count.index}" > /var/www/html/index.html
+              EOF
+
+  tags = {
+    Name = "app-${count.index}"
+  }
+}
