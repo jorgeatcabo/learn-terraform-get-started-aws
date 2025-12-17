@@ -103,3 +103,35 @@ resource "aws_instance" "app" {
     Name = "app-${count.index}"
   }
 }
+
+############################################
+# Classic Load Balancer (Public Subnets)
+############################################
+resource "aws_elb" "this" {
+  name = "my-classic-elb"
+
+  subnets         = module.vpc.public_subnets
+  security_groups = [aws_security_group.alb.id]
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    interval            = 30
+    target              = "HTTP:80/"
+  }
+
+  # Attach private EC2 instances
+  instances = aws_instance.app[*].id
+
+  tags = {
+    Name = "my-classic-elb"
+  }
+}
